@@ -42,6 +42,8 @@ public class Grouper {
                 if (elementMap.containsKey(element)) {
                     Integer oldLineNum = elementMap.get(element);
                     tree.put(lineNum, findRoot(oldLineNum, tree));
+                } else if (!tree.containsKey(lineNum)) {
+                    tree.put(lineNum, lineNum);
                 }
                 elementMap.put(element, lineNum);
             }
@@ -50,10 +52,10 @@ public class Grouper {
     }
 
     private int findRoot(int lineNum, Map<Integer, Integer> tree) {
-        while(tree.containsKey(lineNum)) {
+        while(tree.get(lineNum) != lineNum) {
             lineNum = tree.get(lineNum);
         }
-        return lineNum;
+        return tree.get(lineNum);
     }
 
     private Map<Integer, List<String>> getGroupsFromTree(Map<Integer, Integer> tree) {
@@ -68,7 +70,8 @@ public class Grouper {
             } else {
                 group = groups.get(parent);
             }
-            group.add(lines.get(child));
+            if (!child.equals(parent))
+                group.add(lines.get(child));
         }
         return groups;
     }

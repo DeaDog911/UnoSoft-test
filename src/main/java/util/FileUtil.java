@@ -20,7 +20,9 @@ public class FileUtil {
 
     public static void writeGroups(File file, List<List<String>> groups) {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
-            bw.write(String.format("Количество групп: %d%n", groups.size()));
+            long groupsCount = groups.stream()
+                            .filter(group -> group.size() > 1).count();
+            bw.write(String.format("Количество групп с более чем одной строкой: %d%n", groupsCount));
 
             int groupNumber = 1;
             for (List<String> group : groups) {

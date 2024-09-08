@@ -15,6 +15,7 @@
     </properties>
 
     <build>
+        <finalName>UnoSoft</finalName>
         <plugins>
             <plugin>
                 <!-- Build an executable JAR -->
