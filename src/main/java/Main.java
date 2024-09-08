@@ -9,6 +9,9 @@ public class Main {
     public static void main(String[] args) {
         Instant start = Instant.now();
 
+        if (args.length < 1)
+            throw new IllegalArgumentException("Необходимо указать путь к файлу");
+
         File inputFile = new File(args[0]);
         File outputFile = new File("groups.txt");
 
